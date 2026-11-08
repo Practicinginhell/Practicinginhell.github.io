@@ -6,7 +6,7 @@
 <title>Minh Nhat Nguyen</title>
 <meta name="description" content="AI engineer working on LLM post training, retrieval and agent systems. Ottawa, Canada.">
 <meta property="og:title" content="Minh Nhat Nguyen, AI Engineer">
-<meta property="og:description" content="LLM post training, agents and ML systems. Projects, results and experience.">
+<meta property="og:description" content="LLM post training, small model judges, data quality and grounded agents. Findings, projects and experience.">
 <meta property="og:image" content="https://practicinginhell.github.io/media/gleaner.gif">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d4f7a'/%3E%3Ctext x='16' y='21.5' font-family='monospace' font-size='15' font-weight='700' fill='%23fff' text-anchor='middle'%3EMN%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -146,6 +146,17 @@ dl.skills dd { margin: 0; }
 .edu span { color: var(--muted); font-size: 0.92rem; }
 .extra { margin: 22px 0 0; padding-left: 1.1em; display: grid; gap: 6px; font-size: 0.95rem; }
 
+.questions { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 40px; }
+.q { display: grid; gap: 6px; align-content: start; }
+.q b { font: 700 1.12rem/1.3 var(--display); text-wrap: balance; }
+.q p { margin: 0; max-width: 60ch; }
+.q a { font: 600 0.8rem/1.4 var(--mono); justify-self: start; }
+.q a::before { content: "Evidence: "; color: var(--muted); font-weight: 400; }
+.stacked { display: flex; gap: 2px; height: 18px; cursor: default; }
+.stacked i { display: block; height: 100%; }
+.stacked i:first-child { border-radius: 4px 0 0 4px; }
+.stacked i:last-child { border-radius: 0 4px 4px 0; }
+
 /* charts */
 .measured { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
 .chart { margin: 0; display: grid; gap: 16px; align-content: start; }
@@ -182,7 +193,7 @@ footer .meta { margin-top: 18px; }
 
 @media (max-width: 860px) {
   .feature { grid-template-columns: 1fr; padding: 20px; }
-  .grid, .two, .measured { grid-template-columns: 1fr; }
+  .grid, .two, .measured, .questions { grid-template-columns: 1fr; }
   .results { grid-template-columns: repeat(2, 1fr); }
   .result:nth-child(3) { padding-left: 0; border-left: 0; }
   .result:nth-child(n+3) { border-top: 1px solid var(--rule); }
@@ -206,7 +217,7 @@ footer .meta { margin-top: 18px; }
 <div class="wrap">
 
 <header class="top">
-  <div class="eyebrow">Ottawa, Canada · Authorized to work in Canada</div>
+  <div class="eyebrow">Ottawa, Canada · Member of Cohere Labs · Authorized to work in Canada</div>
   <h1>Minh Nhat Nguyen</h1>
   <p class="role">AI Engineer · LLM Post Training · Agents · ML Systems</p>
   <p class="lede">I build language model systems that hold up in real use: fine tuning pipelines that run on GPU, Apple Silicon and Google TPU, retrieval that is measured against a baseline, and agents that cite their sources or stay quiet. Over 4 years, I have shipped them as an engineer and as a team lead.</p>
@@ -218,17 +229,27 @@ footer .meta { margin-top: 18px; }
   </div>
 </header>
 
-<div class="results" aria-label="Selected results">
-  <div class="result"><b>−38.9%</b><span>held out loss on a 3B model, in controlled comparisons</span></div>
-  <div class="result"><b>+27%</b><span>accuracy on a live RAG system, redesigned by my 10 engineer team</span></div>
+<div class="results" aria-label="Selected findings">
+  <div class="result"><b>24%</b><span>of training records passed automated checks but failed a manual audit</span></div>
+  <div class="result"><b>+27%</b><span>accuracy on a live RAG system after hybrid search and reranking</span></div>
   <div class="result"><b>1,305 → 17</b><span>collected items cut to confirmed quotes in Gleaner</span></div>
   <div class="result"><b>534 → 195</b><span>hours without water in July, same number of delivery stops</span></div>
 </div>
 
+<section id="research">
+  <h2>Research interests</h2>
+  <div class="questions">
+    <div class="q"><b>When can a small model be trusted as a judge?</b><p>In Gleaner, Llama 3.2 3B rejected 20 of 21 mismatched sentences while 1B accepted all 21. I design around what small models measurably do well: narrow yes or no decisions, with code doing the rest.</p><a href="#gleaner">Gleaner</a></div>
+    <div class="q"><b>What do automated data filters miss?</b><p>Of a post training set built from 1.18M raw rows, 24% of the records that passed every automated check were low quality on manual audit. Data quality is where I start.</p><a href="#trl">TRL Pipeline</a></div>
+    <div class="q"><b>Verifiable rewards for code</b><p>An RL environment that runs generated C++ against test cases under resource limits and rewards the fraction passed, so the reward is checked rather than judged.</p><a href="#trl">TRL Pipeline</a></div>
+    <div class="q"><b>Grounded answers and attribution</b><p>Answers that quote their sources word for word and drop any claim without a quote, with fetched text treated as untrusted input.</p><a href="#gleaner">Gleaner</a></div>
+  </div>
+</section>
+
 <section id="projects">
   <h2>Projects</h2>
 
-  <article class="feature">
+  <article class="feature" id="gleaner">
     <figure>
       <img src="media/gleaner.gif" width="960" height="540" alt="Gleaner: the daily brief, a spoken question with a cited answer, finding new websites and suggested next steps">
       <figcaption>The daily brief, a spoken question answered with citations, new sources found on the web, and next steps.</figcaption>
@@ -266,12 +287,12 @@ footer .meta { margin-top: 18px; }
         <span class="lab">Llama 3.2 1B</span><span class="cells" data-tip="1B accepted all 21 wrong sentences"><i class="err"></i><i class="err"></i><i class="err"></i><i class="err"></i><i class="err"></i><i class="err"></i><i class="err"></i><i class="err"></i><i class="err"></i><i class="err"></i><i class="err"></i><i class="err"></i><i class="err"></i><i class="err"></i><i class="err"></i><i class="err"></i><i class="err"></i><i class="err"></i><i class="err"></i><i class="err"></i><i class="err"></i></span><span class="val">21/21</span>
       </div>
       <div class="legend"><span><i class="err"></i>Accepted by mistake</span><span><i></i>Correctly rejected</span></div>
-      <p class="note">So models only answer yes or no, and code does the rest.</p>
+      <p class="note">n = 21, a small probe on real items, not a benchmark. The 1B model said yes every time, so it can't work as a filter.</p>
     </figure>
   </div>
 
   <div class="grid">
-    <article class="card proj">
+    <article class="card proj" id="trl">
       <div class="proj-head"><h3>TRL Pipeline</h3><span class="when">Personal project</span></div>
       <p class="ctx">LLM training and evaluation framework</p>
       <ul>
@@ -279,18 +300,12 @@ footer .meta { margin-top: 18px; }
         <li>A reinforcement learning environment for C++ code generation that runs model output against test cases under resource limits and rewards the fraction passed.</li>
         <li>Prepared 15,655 examples from 1.18M raw rows, and an audit found 24% low quality records that automated checks had passed.</li>
       </ul>
-      <figure class="chart duo" aria-label="Held out loss indexed to baseline 100: fine tuned 61.1. Trainable parameters: full fine tuning 100 percent, lighter method about 8 percent with matching results.">
-        <div class="bars">
-          <span class="lab">Baseline loss</span><span class="track" data-tip="Held out loss before fine tuning, indexed to 100"><i class="base" style="--w:100%"></i></span><span class="val">100</span>
-          <span class="lab">After fine tuning</span><span class="track" data-tip="38.9% lower held out loss on a 3B model"><i style="--w:61.1%"></i></span><span class="val">61.1</span>
-        </div>
-        <div class="bars">
-          <span class="lab">Full fine tuning params</span><span class="track" data-tip="All parameters trained"><i class="base" style="--w:100%"></i></span><span class="val">100%</span>
-          <span class="lab">Lighter method params</span><span class="track" data-tip="About 8% of the parameters, matching full fine tuning"><i style="--w:8%"></i></span><span class="val">~8%</span>
-        </div>
-        <p class="note">Held out loss indexed to baseline = 100. The lighter method matched full fine tuning.</p>
+      <figure class="chart" aria-label="Manual audit of the prepared dataset: 76 percent of records were good, 24 percent were low quality even though they passed automated checks.">
+        <figcaption><b>What the automated checks missed</b><span>Manual audit of the prepared dataset. Every record here had passed the automated checks.</span></figcaption>
+        <div class="stacked" data-tip="76% good, 24% low quality despite passing automated checks"><i style="width:76%;background:var(--m1)"></i><i style="width:24%;background:var(--m2)"></i></div>
+        <div class="legend"><span><i class="m1"></i>Good, 76%</span><span><i class="err"></i>Low quality, 24%</span></div>
       </figure>
-      <div class="out">held out loss <em>−38.9%</em> · a lighter method matched full fine tuning at ~8% of the parameters · 525 tests</div>
+      <div class="out">held out loss <em>−38.9%</em> in controlled comparisons · a lighter method matched full fine tuning at ~8% of the parameters</div>
       <div class="stack"><span>PyTorch</span><span>JAX</span><span>Hugging Face TRL</span><span>Google TPU</span><span>GitHub Actions</span></div>
     </article>
 
@@ -312,7 +327,7 @@ footer .meta { margin-top: 18px; }
         <li>Wraps coding agents in a deterministic state machine: the agent patches code in a sandbox, pytest verifies the fix, and a failure triggers one bounded revision on a stronger model.</li>
         <li>Guards every tool call with path traversal rejection and blocked edits to tests, and logs every step, diff, token count and cost to SQLite with live streaming.</li>
       </ul>
-      <div class="out">read only triage at <em>~8x lower cost</em> · benchmarked against a single pass baseline · 33 tests</div>
+      <div class="out">read only triage at <em>~8x lower cost</em> · benchmarked against a single pass baseline</div>
       <div class="stack"><span>Graphflow</span><span>FastAPI</span><span>SQLite</span><span>Ollama</span><span>Gemini</span></div>
       <div class="proj-links"><a href="https://github.com/CommunityHackathons/adai26-team-008">Code on GitHub →</a></div>
     </article>
@@ -324,7 +339,7 @@ footer .meta { margin-top: 18px; }
         <li>Took an idea to a live product in 3 months, with 108 API endpoints helping shoppers find in stock products nearby.</li>
         <li>An AI assistant with Gemini function calling, plus an on device model that shares the same tools so it works offline.</li>
       </ul>
-      <div class="out">idea to production in <em>3 months</em> · 172 automated tests</div>
+      <div class="out">idea to production in <em>3 months</em> · works offline with an on device model</div>
       <div class="stack"><span>FastAPI</span><span>PostgreSQL</span><span>React</span><span>Gemini API</span></div>
       <div class="proj-links"><a href="https://local-find-vibe17.vercel.app">Try it live →</a></div>
     </article>
