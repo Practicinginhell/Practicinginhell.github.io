@@ -121,6 +121,8 @@ h3 { font: 700 1.35rem/1.2 var(--display); margin: 0; letter-spacing: -0.01em; t
 /* project grid */
 .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px; align-items: start; }
 .card.wide { grid-column: 1 / -1; }
+.card.split { display: grid; grid-template-columns: 1.1fr 1fr; gap: 12px 36px; align-items: start; }
+.private { margin: 0; font: 400 0.8rem/1.4 var(--mono); color: var(--muted); }
 .card { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 24px; }
 
 /* experience */
@@ -193,7 +195,7 @@ footer .meta { margin-top: 18px; }
 
 @media (max-width: 860px) {
   .feature { grid-template-columns: 1fr; padding: 20px; }
-  .grid, .two, .measured, .questions { grid-template-columns: 1fr; }
+  .grid, .two, .measured, .questions, .card.split { grid-template-columns: 1fr; }
   .results { grid-template-columns: repeat(2, 1fr); }
   .result:nth-child(3) { padding-left: 0; border-left: 0; }
   .result:nth-child(n+3) { border-top: 1px solid var(--rule); }
@@ -224,7 +226,7 @@ footer .meta { margin-top: 18px; }
   <div class="links">
     <a class="primary" href="https://github.com/Practicinginhell">GitHub</a>
     <a href="https://linkedin.com/in/livetoevolve">LinkedIn</a>
-    <a href="https://local-find-vibe17.vercel.app">Live demo</a>
+    <a href="resume.pdf">Resume (PDF)</a>
     <a href="#contact">Contact</a>
   </div>
 </header>
@@ -292,7 +294,8 @@ footer .meta { margin-top: 18px; }
   </div>
 
   <div class="grid">
-    <article class="card proj" id="trl">
+    <article class="card proj wide split" id="trl">
+      <div class="proj">
       <div class="proj-head"><h3>TRL Pipeline</h3><span class="when">Personal project</span></div>
       <p class="ctx">LLM training and evaluation framework</p>
       <ul>
@@ -300,6 +303,8 @@ footer .meta { margin-top: 18px; }
         <li>A reinforcement learning environment for C++ code generation that runs model output against test cases under resource limits and rewards the fraction passed.</li>
         <li>Prepared 15,655 examples from 1.18M raw rows, and an audit found 24% low quality records that automated checks had passed.</li>
       </ul>
+      </div>
+      <div class="proj">
       <figure class="chart" aria-label="Manual audit of the prepared dataset: 76 percent of records were good, 24 percent were low quality even though they passed automated checks.">
         <figcaption><b>What the automated checks missed</b><span>Manual audit of the prepared dataset. Every record here had passed the automated checks.</span></figcaption>
         <div class="stacked" data-tip="76% good, 24% low quality despite passing automated checks"><i style="width:76%;background:var(--m1)"></i><i style="width:24%;background:var(--m2)"></i></div>
@@ -307,17 +312,8 @@ footer .meta { margin-top: 18px; }
       </figure>
       <div class="out">held out loss <em>−38.9%</em> in controlled comparisons · a lighter method matched full fine tuning at ~8% of the parameters</div>
       <div class="stack"><span>PyTorch</span><span>JAX</span><span>Hugging Face TRL</span><span>Google TPU</span><span>GitHub Actions</span></div>
-    </article>
-
-    <article class="card proj">
-      <div class="proj-head"><h3>Graphflow</h3><span class="when">Personal project</span></div>
-      <p class="ctx">Agentic AI framework on LangGraph</p>
-      <ul>
-        <li>Build modular agents and multi step automations in a few lines of code, with typed tools, structured output and human approval before sensitive actions.</li>
-        <li>Hardened with retries, timeouts, fallbacks and saved history. Gleaner, AgentOps and TankLight all run on it.</li>
-      </ul>
-      <div class="out">powers <em>3 shipped projects</em> · 101 offline tests</div>
-      <div class="stack"><span>Python</span><span>LangGraph</span><span>LangChain</span><span>Pydantic</span></div>
+      <p class="private">Code is private. Available on request.</p>
+          </div>
     </article>
 
     <article class="card proj">
@@ -329,7 +325,19 @@ footer .meta { margin-top: 18px; }
       </ul>
       <div class="out">read only triage at <em>~8x lower cost</em> · benchmarked against a single pass baseline</div>
       <div class="stack"><span>Graphflow</span><span>FastAPI</span><span>SQLite</span><span>Ollama</span><span>Gemini</span></div>
-      <div class="proj-links"><a href="https://github.com/CommunityHackathons/adai26-team-008">Code on GitHub →</a></div>
+      <p class="private">Team repository is private. Available on request.</p>
+    </article>
+
+    <article class="card proj">
+      <div class="proj-head"><h3>Graphflow</h3><span class="when">Personal project</span></div>
+      <p class="ctx">Agentic AI framework on LangGraph</p>
+      <ul>
+        <li>Build modular agents and multi step automations in a few lines of code, with typed tools, structured output and human approval before sensitive actions.</li>
+        <li>Hardened with retries, timeouts, fallbacks and saved history. Gleaner, AgentOps and TankLight all run on it.</li>
+      </ul>
+      <div class="out">powers <em>3 shipped projects</em> · 101 offline tests</div>
+      <div class="stack"><span>Python</span><span>LangGraph</span><span>LangChain</span><span>Pydantic</span></div>
+      <div class="proj-links"><a href="https://github.com/Practicinginhell/shiori/tree/main/graphflow">Code on GitHub →</a></div>
     </article>
 
     <article class="card proj">
@@ -344,7 +352,7 @@ footer .meta { margin-top: 18px; }
       <div class="proj-links"><a href="https://local-find-vibe17.vercel.app">Try it live →</a></div>
     </article>
 
-    <article class="card proj wide">
+    <article class="card proj">
       <div class="proj-head"><h3>TankLight</h3><span class="when">Sep 2026</span></div>
       <p class="ctx">Water safety tracker and delivery planner · Hack for Humanity Ottawa 2026</p>
       <ul>
